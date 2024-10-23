@@ -1,9 +1,9 @@
 === Jobs for WordPress ===
 Contributors: blueglassinteractive, cfoellmann
-Tags: jobs, work, google, job, recruiter, structured data, json-ld, microdata, postings, employment, career, vacancy, hr, recruitment
+Tags: jobs, recruiter, employment, career, vacancy
 Requires at least: 5.0
 Tested up to: 6.4.3
-Stable tag: 2.7.7
+Stable tag: 2.7.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,12 @@ Jobs for WordPress is a powerfull WordPress plugin that make it easy to add job 
 3. Use [job-postings] to print jobs listing
 
 == Changelog ==
+
+= 2.7.8 =
+* Updated TCPDF version
+* Fixed escaping for tinyMCE fields
+* Added filter to disable escaping on content if you need scripts to be executed in content apply_filters('job-postings/content/tinymce', esc_html($value), $value, $post_id);
+* Maintenance
 
 = 2.7.7 =
 * Fixed escaping for tinyMCE fields

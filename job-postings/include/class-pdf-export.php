@@ -12,7 +12,7 @@ class Jobs_PDF_Header_Footer extends TCPDF {
 	//Page header
 	public function Header() {
 
-		$this->footerData = $this->getHeaderData();
+		//$this->footerData = $this->getHeaderData();
 
 		// Logo
 		//$this->Image($image_file, 0, 7, 35, 0, 'JPG', '', 'T', false, 300, 'R', false, false, 0, false, false, false);
@@ -60,7 +60,7 @@ class Jobs_PDF_Header_Footer extends TCPDF {
 class jobPDFExport{
 		
 	
-	public function __construct( $post_id = null, $fields, $lang ){
+	public function __construct( $post_id, $fields, $lang ){
 		global $language, $the_post_id;
 		//print_r($form);
 
@@ -383,8 +383,7 @@ class jobPDFExport{
 							
 							$value = isset( $values[$key] ) ? $values[$key][0] : '';	
 							$content = apply_filters('the_content', $title.$value);
-							$out1 .= $content;//substr($content, 0, 400);
-							//$out1 .= $title.$value;//substr($content, 0, 400);
+							$out1 .= $content;
 						}
 
 						if( $key == 'position_employment_type' ){
@@ -403,7 +402,7 @@ class jobPDFExport{
 								$list[] = $value;
 							}
 
-							$content .= apply_filters('job-postings/format_list', implode(', ', $list), $list);
+							$content = apply_filters('job-postings/format_list', implode(', ', $list), $list);
 							$content = apply_filters('the_content', $title.$content);
 							$out1 .= $content;
 						}

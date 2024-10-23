@@ -1067,7 +1067,7 @@ class JobAddEdit
 
 
     public static function save( $post_id ){
-		global $BlueGlassAnalytics;
+		//global $BlueGlassAnalytics;
 
 		//$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -1462,7 +1462,7 @@ class JobAddEdit
             update_option('jobs_metrics_active_postings', $active_jobs);
             update_post_meta( $post_id, 'jobs_post_metrics_counted', 'yes' );
 
-            $BlueGlassAnalytics->track_metrics();
+            //$BlueGlassAnalytics->track_metrics();
 		}
 		
 		do_action('job-postings/save', $_POST, $post_id);

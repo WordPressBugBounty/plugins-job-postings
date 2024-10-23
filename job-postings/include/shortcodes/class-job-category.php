@@ -44,7 +44,7 @@ if( !class_exists('JobCategory') ){
             // We write output to this variable
             $out = '';
 
-            $_GET  = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+            $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_SPECIAL_CHARS);
 
             // Check for the file in theme, if no file to override, use default from the plugin
             if ( $overridden_template = locate_template( 'jobs/include/job-categories.php' ) ) {

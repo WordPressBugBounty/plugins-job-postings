@@ -138,7 +138,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['title'] = esc_html($value);
+                        if( $value ) self::$json_ld['title'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_description';
@@ -146,7 +146,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['description'] = esc_html($value);
+                        if( $value ) self::$json_ld['description'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_responsibilities';
@@ -154,7 +154,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['responsibilities'] = esc_html($value);
+                        if( $value ) self::$json_ld['responsibilities'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_qualifications';
@@ -162,7 +162,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['qualifications'] = esc_html($value);
+                        if( $value ) self::$json_ld['qualifications'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_job_benefits';
@@ -170,7 +170,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['jobBenefits'] = esc_html($value);
+                        if( $value ) self::$json_ld['jobBenefits'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_work_hours';
@@ -178,7 +178,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['workHours'] = esc_html($value);
+                        if( $value ) self::$json_ld['workHours'] = esc_html(strip_tags($value));
                     break;
 
                     case 'position_base_salary';
@@ -235,7 +235,7 @@ class JobSingleView
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = htmlspecialchars($value);
-                        if( $value ) self::$json_ld['industry'] = $value;
+                        if( $value ) self::$json_ld['industry'] = strip_tags($value);
                     break;
 
                     case 'position_employment_type';
@@ -461,7 +461,7 @@ class JobSingleView
                                             $icon = Job_Postings_Helper::getRawSvg( 'clock.svg' );
                                         }
 
-                                        $out .= $icon.$value;
+                                        $out .= $icon . esc_html( $value );
                                         break;
 
 
@@ -559,9 +559,8 @@ class JobSingleView
 
                                         # INPUT
                                         $value = isset( $values[$key] ) ? $values[$key][0] : '';
-                                        //$value = htmlspecialchars($value);
+                                        $value = apply_filters('job-postings/content/tinymce', esc_html($value), $value, $post_id);
 
-                                        //$out .= apply_filters('the_content', $value);
                                         $tinymce_content = wpautop($value);
 
                                         if( class_exists('WP_Embed') ) {
@@ -610,7 +609,7 @@ class JobSingleView
                                         if( $url != '' ) {
 
                                             $pathinfo = pathinfo($url);
-                                            $extension = $pathinfo['extension'];
+                                            $extension = isset($pathinfo['extension']) ? $pathinfo['extension'] : 'none';
 
                                             $out .= '<a href="'.$url.'" target="_blank" class="button jp-attachment-button ext-'.$extension.'">'.$filename.'</a>';
 
@@ -643,7 +642,7 @@ class JobSingleView
                                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                                         $value = htmlspecialchars($value);
 
-                                        $out .= $value;
+                                        $out .= esc_html($value);
                                         break;
                                 }
                             }

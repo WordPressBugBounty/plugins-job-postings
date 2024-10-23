@@ -476,7 +476,7 @@ class Job_Postings extends Job_Postings_Helper{
 
 	
 	public static function jobs_metrics_notice_seen(){
-		global $BlueGlassAnalytics;
+		//global $BlueGlassAnalytics;
 
 		if( isset($_POST['status']) && $_POST['status'] != '' ){
 			switch (strip_tags($_POST['status'])) {
@@ -491,7 +491,7 @@ class Job_Postings extends Job_Postings_Helper{
 
 			update_option('jobs_metrics_notice_seen_v2', 'seen');
 
-			$BlueGlassAnalytics->track_metrics();
+			//$BlueGlassAnalytics->track_metrics();
 
 			echo 'ok';
 
