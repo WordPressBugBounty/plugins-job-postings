@@ -559,7 +559,7 @@ class JobSingleView
 
                                         # INPUT
                                         $value = isset( $values[$key] ) ? $values[$key][0] : '';
-                                        $value = apply_filters('job-postings/content/tinymce', esc_html($value), $value, $post_id);
+                                        $value = apply_filters('job-postings/content/tinymce', $value, $post_id);
 
                                         $tinymce_content = wpautop($value);
 
