@@ -557,9 +557,22 @@ class JobSingleView
 
                                     case 'tinymce':
 
+                                        //print_r( $allowed_html );
+
                                         # INPUT
                                         $value = isset( $values[$key] ) ? $values[$key][0] : '';
                                         $value = apply_filters('job-postings/content/tinymce', $value, $post_id);
+
+                                        $allow_script_in_html = apply_filters( 'job-postings/allow-script-in-html', false, $post_id );
+                                        
+                                        $allowed_html = wp_kses_allowed_html('post');
+                                        if( $allow_script_in_html === false ){
+                                            if( isset($allowed_html['script']) ) unset($allowed_html['script']);
+                                        }else{
+                                            $allowed_html['script'] = []; 
+                                        }
+                                        
+                                        $value = wp_kses($value, $allowed_html); 
 
                                         $tinymce_content = wpautop($value);
 

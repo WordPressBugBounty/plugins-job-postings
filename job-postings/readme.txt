@@ -3,7 +3,7 @@ Contributors: blueglassinteractive, cfoellmann
 Tags: jobs, recruiter, employment, career, vacancy
 Requires at least: 5.0
 Tested up to: 6.4.3
-Stable tag: 2.7.9
+Stable tag: 2.7.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,11 @@ Jobs for WordPress is a powerfull WordPress plugin that make it easy to add job 
 3. Use [job-postings] to print jobs listing
 
 == Changelog ==
+
+= 2.7.10 =
+* Fixed escaping for TinyMCE fields to enhance XSS protection.
+* Added a conditional filter to allow specific users to include <script> tags in meta fields if required: $allow_script_in_html = apply_filters('job-postings/allow-script-in-html', false, $post_id);
+* Updated security measures to ensure that only permitted users can embed scripts, with all other users restricted to safe HTML.
 
 = 2.7.9 =
 * Hot fix for HTML escape in content
