@@ -33,7 +33,20 @@ if( !class_exists('JobApplyForm') ){
         $out = '';
 
         $apply_advanced 	= get_option( 'jobs_apply_advanced' );
+
         $confirmation 		= get_post_meta( $post_id, 'job_notification_message', true );
+
+        $allow_script_in_html = apply_filters( 'job-postings/allow-script-in-html', false, $post_id );
+        
+        $allowed_html = wp_kses_allowed_html('post');
+        if( $allow_script_in_html === false ){
+            if( isset($allowed_html['script']) ) unset($allowed_html['script']);
+        }else{
+            $allowed_html['script'] = []; 
+        }
+        
+        $confirmation = wp_kses($confirmation, $allowed_html); 
+
         $postition_title 	= apply_filters('jp-modal-position-title', get_post_meta($post_id, 'position_title', true));
         $postition_title    = htmlspecialchars($postition_title);
         $close_img 			= apply_filters('jp-modal-close-image', '<img src="'.JOBPOSTINGSURL.'images/close.svg" alt="Close modal window">');
