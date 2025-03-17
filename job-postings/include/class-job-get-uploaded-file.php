@@ -38,11 +38,20 @@ class JobGetUploadedFile {
 
             // Secure file directory
             $filedir = apply_filters('job-postings/uploaded-files-path', JOBPOSTINGSFILESDIR);
-
-            $file =  $filedir . $filename;
-            $file = urldecode( $file );
-
-            if (!$filedir || !is_file($file)) {
+            
+            // Sanitize filename to prevent directory traversal
+            $filename = basename(sanitize_file_name($filename)); // Remove any directory components and sanitize filename
+            
+            $file = $filedir . $filename;
+            $file = urldecode($file);
+            
+            // Verify the file is within allowed directory
+            $real_file = realpath($file);
+            $real_dir = realpath($filedir);
+            
+            if (!$filedir || !$real_file || !$real_dir || 
+                strpos($real_file, $real_dir) !== 0 || 
+                !is_file($real_file)) {
                 status_header(404);
                 die('404 &#8212; File not found.');
             }

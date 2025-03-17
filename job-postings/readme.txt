@@ -1,9 +1,9 @@
-=== Jobs for WordPress ===
+=== Job Postings ===
 Contributors: blueglassinteractive, cfoellmann
 Tags: jobs, recruiter, employment, career, vacancy
 Requires at least: 5.0
-Tested up to: 6.4.3
-Stable tag: 2.7.11
+Tested up to: 6.7.2
+Stable tag: 2.7.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ WordPress plugin that make it easy to add job postings to your company’s websi
 
 
 == Description ==
-Jobs for WordPress is a powerfull WordPress plugin that make it easy to add job postings to your company’s website in a structured way. While you can comfortably create and manage job postings in a very user-friendly way, they are also automatically structured with schema.org. Thus, they are technically easy to read for Google and have a high chance of being displayed and ranked well in search results and you can save on expensive postings on job platforms.
+Job Postings is a powerfull WordPress plugin that make it easy to add job postings to your company’s website in a structured way. While you can comfortably create and manage job postings in a very user-friendly way, they are also automatically structured with schema.org. Thus, they are technically easy to read for Google and have a high chance of being displayed and ranked well in search results and you can save on expensive postings on job platforms.
 
 
 == Features ==
@@ -39,6 +39,9 @@ Jobs for WordPress is a powerfull WordPress plugin that make it easy to add job 
 3. Use [job-postings] to print jobs listing
 
 == Changelog ==
+
+= 2.7.12 =
+* Fix for Authenticated (Subscriber+) Arbitrary File Read
 
 = 2.7.11 =
 * Hot fix for HTML escape in confirmation
@@ -669,7 +672,7 @@ Initial release
 * Fixes the entry uploads public appearance
 
 = 1.5.0 =
-* As we integrated "Apply now" editor, on all job entries page disapears the applicant data preview (name, email, phone, etc), because of structure change. This field's there now related to the new "Apply now" editor. On entry details page all the data still in place, no worries :)
+* As we integrated "Apply now" editor, on all job entries page disapears the applicant data preview (name, email, phone, etc), because of structure change. This field's there now related to the new "Apply now" editor.
 
 = 1.3.0 =
 * Major update. Added "Styles settings" with live preview.
