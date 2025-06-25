@@ -46,19 +46,22 @@ class JobApplicationSubmit
                 $chosenFileType = array_unique($chosenFileType);
             }
 
-            $collectAcceptedFiles = array_map(function( $param ){
-                $setVal = '';
-                if( !empty($param['multi_files_accepted']) ){
-                    $setVal = $param['multi_files_accepted'];
-                }
+            $collectAcceptedFiles = [];
+            if (!empty($apply_advanced['modal']) && is_array($apply_advanced['modal'])) {
+                $collectAcceptedFiles = array_map(function($param) {
+                    $setVal = '';
+                    if (!empty($param['multi_files_accepted'])) {
+                        $setVal = $param['multi_files_accepted'];
+                    }
 
-                if( !empty($param['files_accepted']) ){
-                    $setVal = $param['files_accepted'];
-                }
+                    if (!empty($param['files_accepted'])) {
+                        $setVal = $param['files_accepted'];
+                    }
 
-                return $setVal;
+                    return $setVal;
 
-            }, $apply_advanced['modal']);
+                }, $apply_advanced['modal']);
+            }
 
             // Use array_filter to remove indexes with empty 'multi_files_accepted' values
             $filteredData = array_filter($collectAcceptedFiles, function ($item) {

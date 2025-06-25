@@ -1224,7 +1224,7 @@ if ( ! isset( $_REQUEST['settings-updated'] ) )
 
 
 									<div class="row clearfix">
-										<label><?php echo _x('Default email', 'job-settings', 'job-postings') ?></label>
+										<label><?php echo _x('Default recipient email', 'job-settings', 'job-postings') ?></label>
 										<div class="jobs-settings-input">
 										<?php
 											$option_name = 'jobs_default_email';
@@ -1233,6 +1233,8 @@ if ( ! isset( $_REQUEST['settings-updated'] ) )
 											if(empty($value)) $value = get_option('admin_email'); // default
 											$name = $option_name;
 											echo '<input type="text" name="'.$option_name.'" value="'.$value.'">';
+											echo '<p class="description jfw_hint">'.__("Default email where new job applications will be sent to. Default is the site's admin email.", 'job-postings').'</p>';
+
 										?>
 										</div>
 									</div>
@@ -1254,6 +1256,23 @@ if ( ! isset( $_REQUEST['settings-updated'] ) )
 											echo '</select>';
 
 											echo '<p class="description jfw_hint">'.__("If your site uses Yoast SEO, the structured SEO Schema will follow Yoast's recommendations. Choose 'Default' if you are not sure.", 'job-postings').'</p>';
+										?>
+										</div>
+									</div>
+
+
+									<div class="row clearfix">
+										<label><?php echo _x('"From" email', 'job-settings', 'job-postings') ?></label>
+										<div class="jobs-settings-input">
+										<?php
+											$option_name = 'jobs_from_email';
+											$value = get_option( $option_name );
+											$value = sanitize_text_field($value);
+											if(empty($value)) $value = get_option('admin_email'); // default
+											$name = $option_name;
+											echo '<input type="text" name="'.$option_name.'" value="'.$value.'">';
+											echo '<p class="description jfw_hint">'.__("Email address that will be used as the sender of the email. Default is the site's admin email.", 'job-postings').'</p>';
+
 										?>
 										</div>
 									</div>

@@ -119,7 +119,7 @@ class JobNotifications
 							//var_dump( $field );
 							switch ($file_storage) {
 								case 'media':
-									$filepath = Job_Postings_Helper::getFilePath( $field );
+									$filepath = Job_Postings_Helper::getFilePath( $field['value'] );
 									$attachments[] = $filepath;
 									break;
 								
@@ -175,14 +175,18 @@ class JobNotifications
 		$contact_email = explode(',', $contact_email);
 		$contact_email = $contact_email[0];
 
-		$from_email	= apply_filters('job-postings/from_email', $contact_email, $job_id);
-		$from_name 	= apply_filters('job-postings/from_name', $name, $job_id);
+		$contact_email	= apply_filters('job-postings/from_email', $contact_email, $job_id);
+		$contact_name 	= apply_filters('job-postings/from_name', $name, $job_id);
 
-		$headers = "From: ".$from_name." < ".$from_email." >\n";
+		$site_name = get_bloginfo('name');
+		$from_email = get_option('jobs_from_email');
+		if(empty($from_email)) $from_email = get_option('admin_email');
+
+		$headers = "From: ".$site_name." < ".$from_email." >\n";
 		$headers .= "X-Sender: ".$contact_email."\n";
-		$headers .= 'X-Mailer: PHP/' . phpversion();
+		$headers .= 'X-Mailer: PHP/' . phpversion()."\n";
 		$headers .= "X-Priority: 1\n"; // Urgent message!
-		$headers .= "Reply-To: ".$from_name." < ".$from_email." >\n";
+		$headers .= "Reply-To: ".$contact_name." < ".$contact_email." >\n";
 		$headers .= "MIME-Version: 1.0\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\n";
 
