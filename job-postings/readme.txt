@@ -3,7 +3,7 @@ Contributors: blueglassinteractive, cfoellmann
 Tags: jobs, recruiter, employment, career, vacancy
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 2.7.13
+Stable tag: 2.7.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,9 @@ Job Postings is a powerfull WordPress plugin that make it easy to add job postin
 3. Use [job-postings] to print jobs listing
 
 == Changelog ==
+
+= 2.7.14 =
+* Fixed issue that logged out users when accessing uploaded files from secure location
 
 = 2.7.13 =
 * Fixed issue with email attachments

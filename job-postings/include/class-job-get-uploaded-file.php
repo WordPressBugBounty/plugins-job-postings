@@ -7,7 +7,7 @@ class JobGetUploadedFile {
     public function __construct(){
         add_action( 'init', array($this, 'init_internal') );
         add_action( 'query_vars', array($this, 'query_vars') );
-        add_filter( 'parse_request', array($this, 'parse_request') );
+        add_action( 'template_redirect', array($this, 'handle_download_request') );
     }
 
     public function init_internal(){
@@ -19,19 +19,18 @@ class JobGetUploadedFile {
         return $query_vars;
     }
 
-    public function parse_request( &$wp ) {
-
-        if ( array_key_exists( 'job_postings_get_file', $wp->query_vars ) ) {
-
+    public function handle_download_request() {
+        global $wp_query;
+        
+        if ( isset( $wp_query->query_vars['job_postings_get_file'] ) ) {
+            
             if ( ! is_user_logged_in() ) {
                 auth_redirect();
             }
-
-            $this->do_query( $wp->query_vars['job_postings_get_file'] );
-
+            
+            $this->do_query( $wp_query->query_vars['job_postings_get_file'] );
             exit();
         }
-        return;
     }
 
     public function do_query( $filename ){
