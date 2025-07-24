@@ -14,6 +14,12 @@ if( !class_exists('JobCategory') ){
                     'multiselect' => 'false'
             ), $atts));
 
+            $category = sanitize_text_field( $category );
+            $aligncategory = sanitize_text_field( $aligncategory );
+            $hide_empty = sanitize_text_field( $hide_empty );
+            $show_count = sanitize_text_field( $show_count );
+            $multiselect = sanitize_text_field( $multiselect );
+
             wp_enqueue_style('jp-front-styles');
 
             $hide_empty = ($hide_empty == 'true') ? true:false;

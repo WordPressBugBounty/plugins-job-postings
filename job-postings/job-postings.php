@@ -4,7 +4,7 @@ Plugin Name: Job Postings
 Plugin URI: https://wordpress.org/plugins/job-postings/
 Description: WordPress plugin that make it easy to add job postings to your company’s website in a structured way.
 Author: BlueGlass
-Version: 2.7.14
+Version: 2.7.17
 Author URI: http://blueglass.ch/
 Text Domain: job-postings
 Domain Path: /languages
@@ -16,7 +16,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-define('JOBPOSTINGSVERSION', '2.7.14');
+define('JOBPOSTINGSVERSION', '2.7.17');
 define('JOBPOSTINGSPATH', plugin_dir_path( __FILE__ ));
 define('JOBPOSTINGSURL', plugin_dir_url(__FILE__));
 define('JOBPOSTINGSFILESDIR', ABSPATH . '../jobs-dir/');
@@ -63,8 +63,6 @@ include_once('include/shortcodes/class-job-single.php');
 include_once('include/class-job-duplicate-offer.php');
 
 Job_Postings::load();
-//add_action( 'init', array( 'Job_Postings', 'load' ), 100);
-
 
 // Install defaults on plugin activation
 register_activation_hook( __FILE__, array('Job_Postings', 'jobs_plugin_add_defaults') );

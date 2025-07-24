@@ -10,6 +10,9 @@ if( !class_exists('JobSingle') ){
                     'id' => ''
             ), $atts));
 
+            
+            $id = sanitize_text_field( $id );
+
             if( $id == '' ) return;
 
             ob_start();

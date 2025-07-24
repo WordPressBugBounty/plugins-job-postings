@@ -914,6 +914,12 @@ body.single-jobs .wrap{
   width: 30%;
 }
 
+.job-postings-filters.filter-style-1.no-category-filter .jobs-search{
+    float: none;
+    max-width: 320px;
+    min-width: 240px;
+}
+
 .job-postings-filters.filter-style-2 .job-listing-categories{
   float: right;
   width: 70%;
@@ -924,6 +930,12 @@ body.single-jobs .wrap{
   width: 30%;
 }
 
+.job-postings-filters.filter-style-2.no-category-filter .jobs-search{
+    float: none;
+    max-width: 320px;
+    min-width: 240px;
+}
+
 .job-postings-filters.filter-style-3 .job-listing-categories{
   width: 100%;
 }
@@ -932,6 +944,12 @@ body.single-jobs .wrap{
   max-width: 320px;
   margin-bottom: 30px;
   margin-top: -10px;
+}
+.job-postings-filters.filter-style-3.no-category-filter .jobs-search{
+    float: none;
+    max-width: 320px;
+    min-width: 240px;
+    margin-top: 0px;
 }
 
 .job-postings-filters.filter-style-4 .job-listing-categories{
@@ -946,6 +964,12 @@ body.single-jobs .wrap{
   margin-bottom: 30px;
   margin-top: -10px;
 }
+.job-postings-filters.filter-style-4.no-category-filter .jobs-search{
+    float: none;
+    max-width: 320px;
+    min-width: 240px;
+    margin-top: 0px;
+}
 
 .job-postings-filters.filter-style-5 .job-listing-categories{
   width: 100%;
@@ -954,6 +978,9 @@ body.single-jobs .wrap{
   width: 100%;
   margin-bottom: 30px;
   margin-top: -10px;
+}
+.job-postings-filters.filter-style-5.no-category-filter .jobs-search{
+    margin-top: 0px;
 }
 
 .job-postings-filters.filter-style-6 .job-listing-categories{
@@ -964,6 +991,9 @@ body.single-jobs .wrap{
   width: 100%;
   max-width: 320px;
   margin: -10px auto 30px;
+}
+.job-postings-filters.filter-style-6.no-category-filter .jobs-search{
+    margin-top: 0px;
 }
 
 .jobs-search{

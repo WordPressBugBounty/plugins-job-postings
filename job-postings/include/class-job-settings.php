@@ -50,6 +50,7 @@ class JobSettings
         register_setting( 'jobs_options' , 'jobs_hide_cv_upload' );
         register_setting( 'jobs_options' , 'jobs_default_email' );
         register_setting( 'jobs_options' , 'jobs_selected_schema' );
+        register_setting( 'jobs_options' , 'jobs_from_email' );
 
         register_setting( 'jobs_options' , 'jobs_file_storage' );
         register_setting( 'jobs_options' , 'jobs_max_filesize' );

@@ -10,6 +10,17 @@ class JobAddEdit
 
 		do_action( 'job-postings/add-edit-loaded');
 
+
+		add_filter( 'job-postings/position_fields', array('JobAddEdit', 'jobs_default_field_sorting') );
+		
+		add_action( 'add_meta_boxes', array('JobAddEdit', 'add_meta_boxes'), 10, 2 );
+		add_action( 'save_post', array('JobAddEdit', 'save') );
+
+
+		add_action( 'init', array( 'JobAddEdit', 'tabs' ), 100);
+	}
+
+	public static function tabs(){
 		self::$tabs = array(
 			'job_form' => _x('Position details', 'job-meta-box', 'job-postings'),
 			'job_settings' => _x('Settings', 'job-meta-box', 'job-postings'),
@@ -18,11 +29,6 @@ class JobAddEdit
 		);
 		
 		self::$tabs = apply_filters('job-postings/job-tabs', self::$tabs);
-
-		add_filter( 'job-postings/position_fields', array('JobAddEdit', 'jobs_default_field_sorting') );
-		
-		add_action( 'add_meta_boxes', array('JobAddEdit', 'add_meta_boxes'), 10, 2 );
-		add_action( 'save_post', array('JobAddEdit', 'save') );
 	}
 	
 	/* 

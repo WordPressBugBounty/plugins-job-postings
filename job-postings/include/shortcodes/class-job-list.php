@@ -25,6 +25,20 @@ if( !class_exists('JobList') ){
                 )
             );
 
+
+            $category = sanitize_text_field( $category );
+            $showcategory = sanitize_text_field( $showcategory );
+            $aligncategory = sanitize_text_field( $aligncategory );
+            $hide_empty = sanitize_text_field( $hide_empty );
+            $show_count = sanitize_text_field( $show_count );
+            $show_filters = sanitize_text_field( $show_filters );
+            $limit = sanitize_text_field( $limit );
+            $posts_per_page = sanitize_text_field( $posts_per_page );
+            $hide_past = sanitize_text_field( $hide_past );
+            $orderby = sanitize_text_field( $orderby );
+            $order = sanitize_text_field( $order );
+            $target = sanitize_text_field( $target );
+
             $out = '';
 
             wp_enqueue_style('jp-front-styles');
@@ -38,11 +52,14 @@ if( !class_exists('JobList') ){
             }
 
             if( $limit == '' && $show_filters == 'true' ){
+                $category_filter_html = JobCategory::do_job_categories( $aligncategory, $category, $hide_empty, $show_count ); 
+
                 $filter_class = get_option('jobs_filters_styles');
                 $filter_class = $filter_class ? $filter_class : 'filter-style-1';
+                if( empty($category_filter_html) ) $filter_class .= ' no-category-filter';
+                
                 $out .= '<div class="job-postings-filters clearfix '.$filter_class.'">';
-                    $out .= JobCategory::do_job_categories( $aligncategory, $category, $hide_empty, $show_count );
-
+                    $out .= $category_filter_html;
                     $out .= JobSearch::render_search();
                 $out .= '</div>';
             }
