@@ -594,6 +594,32 @@ class Job_Postings extends Job_Postings_Helper{
 	public static function ajax_pdf_export( $post_id ){
 		if( !$post_id ) return;
 
+		// 1. Validate post ID is numeric
+		$post_id = absint( $post_id );
+		if ( ! $post_id ) {
+			wp_die( 'Invalid post ID', 400 );
+		}
+
+		// 2. Check post exists and is the correct type
+		$post = get_post( $post_id );
+		if ( ! $post || $post->post_type !== 'jobs' ) {
+			wp_die( 'Job not found', 404 );
+		}
+
+		// 3. IMPORTANT: Only allow published posts for public access
+		if ( $post->post_status !== 'publish' ) {
+			// If not published, require authentication
+			if ( ! is_user_logged_in() || ! current_user_can( 'edit_post', $post_id ) ) {
+				wp_die( 'Access denied', 403 );
+			}
+		}
+
+		// 4. IMPORTANT: Check that $post_id belongs to "jobs" post type
+		if ($post->post_status === 'private' && !current_user_can('edit_posts') ) {
+			wp_die( 'Insufficient permissions', 403 );
+		}
+
+
 		if( !class_exists('TCPDF') ) require_once(plugin_dir_path( __FILE__ ) . 'tcpdf/tcpdf.php');
 		require_once(plugin_dir_path( __FILE__ ) . 'include/class-pdf-export.php');
 

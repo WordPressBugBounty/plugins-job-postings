@@ -41,10 +41,11 @@ if( $terms && !empty($terms) ){
 		$active_all = 'active';
 	}
 
-	$out = '<div class="job-listing-categories '.implode(', ', $class).'">';
+	$out = '<div class="job-listing-categories '.implode(', ', $class).'" role="group" aria-label="' . esc_attr__('Filter jobs by category', 'job-postings') . '">';
 		if($multiselect == 'true' ) $out .= '<form action="" method="GET">';
 			$all = apply_filters( 'jobs/all', _x('All', 'job-categories', 'job-postings') );
-			$out .= '<a href="'.$jobs_page_permalink.'?job-category=all" class="job-category job-category-all '.$active_all.'">'.$all.'</a>';
+			$aria_current = $active_all == 'active' ? ' aria-current="true"' : '';
+			$out .= '<a href="'.$jobs_page_permalink.'?job-category=all" class="job-category job-category-all '.$active_all.'"'.$aria_current.'>'.$all.'</a>';
 
 			foreach ($terms as $key => $term) {
 				$active = '';
@@ -91,19 +92,20 @@ if( $terms && !empty($terms) ){
 
 				if($multiselect == 'true' ) {
 					$out .= '<label for="job-category-'.$term->slug.'" class="job-category job-category-'.$term->slug.' '.$child_class.' '.$active.'">';
-
-						$out .= '<input id="job-category-'.$term->slug.'" type="checkbox" name="job-category[]" value="'.$term->slug.'" '.$active.'>';
+						$checked = strpos($active, 'checked') !== false ? 'checked' : '';
+						$out .= '<input id="job-category-'.$term->slug.'" type="checkbox" name="job-category[]" value="'.$term->slug.'" '.$checked.' aria-label="' . esc_attr($term->name) . '">';
 						$out .= '<span>';
 							$out .= $term->name.$count;
 						$out .= '</span>';
 					$out .= '</label>';
 				}else{
-					$out .= '<a href="'.$jobs_page_permalink.'?job-category='.$term->slug.'" class="job-category job-category-'.$term->slug.' '.$child_class.' '.$active.'">'.$term->name.$count.'</a>';
+					$aria_current = $active == 'active' ? ' aria-current="page"' : '';
+					$out .= '<a href="'.$jobs_page_permalink.'?job-category='.$term->slug.'" class="job-category job-category-'.$term->slug.' '.$child_class.' '.$active.'"'.$aria_current.'>'.$term->name.$count.'</a>';
 				}
 				
 
 			}
-			if($multiselect == 'true' ) $out .= '<button type="submit">Filter</button>';
+			if($multiselect == 'true' ) $out .= '<button type="submit" aria-label="' . esc_attr__('Apply category filters', 'job-postings') . '">' . __('Filter', 'job-postings') . '</button>';
 		if($multiselect == 'true' ) $out .= '</form>';
 	$out .= '</div>';
 

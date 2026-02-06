@@ -416,7 +416,7 @@ class JobAddEdit
 
 							$global_company_logo 		= get_option('jobs_company_logo');
 							$global_hiring_organization = get_option('jobs_hiring_organization'.'_'.Job_Postings::$lang);
-							$global_hiring_organization = htmlspecialchars($global_hiring_organization);
+							$global_hiring_organization = esc_html($global_hiring_organization);
 
 							$horg_placeholder = '';
 							if( $global_hiring_organization != '' ) $horg_placeholder = 'Global: '. $global_hiring_organization;
@@ -427,7 +427,7 @@ class JobAddEdit
 							$single_company_logo 		= isset( $values[$key] ) && $values[$key][0] != '' ? esc_attr( $values[$key][0] ) : '';
 							
 							$hiring_organization 		= isset( $values['position_hiring_organization_name'] ) && $values['position_hiring_organization_name'][0] != '' ? esc_attr( $values['position_hiring_organization_name'][0] ) : '';
-							$hiring_organization 		= htmlspecialchars($hiring_organization);
+							$hiring_organization 		= esc_html($hiring_organization);
 							//if(!$hiring_organization) $hiring_organization = get_option('blogname');
 
 							// if( $single_company_logo ){
@@ -511,7 +511,6 @@ class JobAddEdit
     					# INPUT
 
     						$value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-							$value = htmlspecialchars($value);
 
 							$pdf_ico = '<img class="pdf-icon" src="'.plugin_dir_url( __FILE__ ).'../images/pdf.svg" width="15">';
 
@@ -522,7 +521,6 @@ class JobAddEdit
     					# INPUT
 
     						$value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : $name;
-							$value = htmlspecialchars($value);
 
 				    		echo '<input class="jp-input" autocomplete="off" type="text" name="'.esc_attr($key).'" id="'.esc_attr($key).'" value="'.$value.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
 				    		//echo '<p>'.esc_attr($placeholder).'</p>';
@@ -532,7 +530,6 @@ class JobAddEdit
     					# INPUT
 
     						$value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : $name;
-							$value = htmlspecialchars($value);
 
 				    		//echo '<input class="jp-input" autocomplete="off" type="text" name="'.esc_attr($key).'" id="'.esc_attr($key).'" value="'.$value.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
 				    		//echo '<p>'.esc_attr($placeholder).'</p>';
@@ -542,7 +539,6 @@ class JobAddEdit
     					# INPUT
 
     						$value = isset( $values[$key] ) ? strip_tags( $values[$key][0] ) : $name;
-							$value = htmlspecialchars($value);
 			    			$style 	= isset( $values[$key.'-style'] ) ? esc_attr( $values[$key.'-style'][0] ) : 'primary-style';
 
 				    		echo '<input class="jp-input '.esc_attr($style).'" autocomplete="off" type="text" name="'.esc_attr($key).'" id="'.esc_attr($key).'" value="'.$value.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
@@ -553,7 +549,6 @@ class JobAddEdit
     					# INPUT
 
     						$value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-							$value = htmlspecialchars($value);
 
 				    		echo '<input class="jp-input js-datepicker" autocomplete="off" type="text" name="'.esc_attr($key).'" id="js-datepicker" value="'.$value.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
 				    		//echo '<p>'.esc_attr($placeholder).'</p>';
@@ -563,7 +558,6 @@ class JobAddEdit
     				case 'textarea':
     					# INPUT
     						$value = isset( $values[$key] ) ? $values[$key][0] : '';
-							$value = htmlspecialchars($value);
 
 				    		echo '<textarea class="jp-textarea" resize="none" rows="2" name="'.esc_attr($key).'" id="'.esc_attr($key).'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'>'.$value.'</textarea>';
     					break;
@@ -598,17 +592,14 @@ class JobAddEdit
 								echo JobAddEdit::getDatalist( $key . '_addressRegion' );
 
 								$streetAddress = isset( $values[$key.'_streetAddress'] ) ? esc_attr( $values[$key.'_streetAddress'][0] ) : '';
-								$streetAddress = htmlspecialchars($streetAddress);
 								echo '<input class="jp-input" list="datalist-'.esc_attr($key).'_streetAddress" autocomplete="off" type="text" name="'.esc_attr($key).'_streetAddress" id="'.esc_attr($key).'_streetAddress" value="'.$streetAddress.'" placeholder="'.esc_attr($placeholder_st).'" />';
 
 
 								$postalCode = isset( $values[$key.'_postalCode'] ) ? esc_attr( $values[$key.'_postalCode'][0] ) : '';
-								$postalCode = htmlspecialchars($postalCode);
 								echo '<input class="jp-input" list="datalist-'.esc_attr($key).'_postalCode" autocomplete="off" type="text" name="'.esc_attr($key).'_postalCode" id="'.esc_attr($key).'_postalCode" value="'.esc_attr($postalCode).'" placeholder="'.$placeholder_zip.'" />';
 
 
 								$city = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-								$city = htmlspecialchars($city);
 								echo '<input class="jp-input" list="datalist-'.esc_attr($key).'" autocomplete="off" type="text" name="'.esc_attr($key).'" id="'.esc_attr($key).'" value="'.$city.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
 
 
@@ -617,11 +608,9 @@ class JobAddEdit
 
 
 								$addressRegion = isset( $values[$key.'_addressRegion'] ) ? esc_attr( $values[$key.'_addressRegion'][0] ) : '';
-								$addressRegion = htmlspecialchars($addressRegion);
 								echo '<input class="jp-input" list="datalist-'.esc_attr($key).'_addressRegion" autocomplete="off" type="text" name="'.esc_attr($key).'_addressRegion" id="'.esc_attr($key).'_addressRegion" value="'.$addressRegion.'" placeholder="'.$placeholder_ar.'" />';
 
 								$addressCountry = isset( $values[$key.'_addressCountry'] ) ? esc_attr( $values[$key.'_addressCountry'][0] ) : '';
-								$addressCountry = htmlspecialchars($addressCountry);
 								echo '<input class="jp-input" list="datalist-'.esc_attr($key).'_addressCountry" autocomplete="off" type="text" name="'.esc_attr($key).'_addressCountry" id="'.esc_attr($key).'_addressCountry" value="'.$addressCountry.'" placeholder="'.$placeholder_cc.'" />';
 
 							echo '</div>';
@@ -646,8 +635,7 @@ class JobAddEdit
 									foreach ($job_remote_data as $key => $value) {
 										echo '<div class="jfw_repeater_row clearfix" data-repeater-item>';
 
-											$val = isset($job_remote_data[$key]['type']) ? $job_remote_data[$key]['type'] : '';
-											$val = htmlspecialchars($val);
+											$val = isset($job_remote_data[$key]['type']) ? esc_html($job_remote_data[$key]['type']) : '';
 											echo '<label for="type-field-'.esc_attr($key).'">'.__('Type', 'job-postings').'</label>';
 											echo '<select id="type-field-'.esc_attr($key).'" name="type" class="job_remote_data_type" data-hint-country="'.__('Example: USA').'" data-hint-state="'.__('Example: Texas, USA').'">';
 												echo '<option value="">-</option>';
@@ -655,8 +643,7 @@ class JobAddEdit
 												echo '<option value="State" '.selected($val, 'State', false).'>State</option>';
 											echo '</select>';
 
-											$val2 = isset($job_remote_data[$key]['name']) ? $job_remote_data[$key]['name'] : '';
-											$val2 = htmlspecialchars($val2);
+											$val2 = isset($job_remote_data[$key]['name']) ? esc_html($job_remote_data[$key]['name']) : '';
 											echo '<label for="name-field-'.esc_attr($key).'">'.__('Location', 'job-postings').'<span class="example"></span></label>';
 											echo '<input id="name-field-'.esc_attr($key).'" class="job-input-field job_remote_data_name" name="name" type="text" value="'.$val2.'">';
 
@@ -691,7 +678,6 @@ class JobAddEdit
     				case 'tinymce':
     					# INPUT
     						$value = isset( $values[$key] ) ? $values[$key][0] : '';
-							//$value = htmlspecialchars($value);
 
 				    		wp_editor( $value, $key, array(
     							'textarea_rows' => 5,
@@ -763,8 +749,8 @@ class JobAddEdit
 							echo '<div class="options_group">';
 							foreach ($options as $option_key => $option_name) {
 								$checked = '';
-								$option_key = htmlspecialchars($option_key);
-								$option_name = htmlspecialchars($option_name);
+								$option_key = esc_html($option_key);
+								$option_name = esc_html($option_name);
 								if( is_array($value) && in_array($option_key, $value) ) $checked = 'checked';
 								echo '<label for="checkbox-'.esc_attr($option_key).'">';
 									echo '<input '.$checked.' class="jp-checkbox '.$style.'" type="checkbox" name="'.esc_attr($key).'[]" id="checkbox-'.esc_attr($option_key).'" value="'.esc_attr($option_key).'" '.esc_attr($req).'/>';
@@ -773,10 +759,9 @@ class JobAddEdit
 							}
 
 							if( is_array($value) ){
-								$other_input_value = isset($value['other_input']) ? $value['other_input']:"";
-								$other_input_value = htmlspecialchars($other_input_value);
+								$other_input_value = isset($value['other_input']) ? esc_html($value['other_input']):"";
 							}else{
-								$value = htmlspecialchars($value);
+								$value = esc_html($value);
 								$other_input_value = $value;
 							}
 							
@@ -796,11 +781,8 @@ class JobAddEdit
     					# INPUT
 							$unitText 			= isset($field['unitText']) ? $field['unitText'] : array();
     						$value 				= isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-							$value 				= htmlspecialchars($value);
     						$upto 				= isset( $values[$key.'_upto'] ) ? esc_attr( $values[$key.'_upto'][0] ) : '';
-							$upto 				= htmlspecialchars($upto);
     						$unittext_value 	= isset( $values[$key.'_unittext'] ) ? esc_attr( $values[$key.'_unittext'][0] ) : '';
-							$unittext_value 	= htmlspecialchars($unittext_value);
 
 							$currency_before = '';
 							$currency_after = '';
@@ -862,7 +844,7 @@ class JobAddEdit
 
 
 							}else{
-								$value = htmlspecialchars($value);
+								$value = esc_html($value);	
 								echo $currency_before;
 					    		echo '<input class="jp-input '.esc_attr($input_class).'" list="datalist-'.esc_attr($key).'" autocomplete="off" type="text" name="'.esc_attr($key).'" id="'.esc_attr($key).'" value="'.$value.'" placeholder="'.esc_attr($placeholder).'" '.esc_attr($req).'/>';
 								echo $currency_after;
@@ -895,7 +877,7 @@ class JobAddEdit
 
     			$name = $key.'-custom-title';
     			$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
     			$out .= '<label for="'.esc_attr($name).'">';
     				$out .= _x('Custom title', 'jobs-field', 'job-postings');
@@ -909,7 +891,7 @@ class JobAddEdit
 
     			$name = $key.'-hide-title';
     			$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
     			$out .= '<label for="'.esc_attr($name).'">';
     				$out .= _x('Hide title', 'jobs-field', 'job-postings');
@@ -925,7 +907,7 @@ class JobAddEdit
 
 				$name = $key.'-hide-field';
 				$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
 				$out .= '<label for="'.esc_attr($name).'">';
 					$out .= _x('Hide field', 'jobs-field', 'job-postings');
@@ -943,7 +925,7 @@ class JobAddEdit
 
 				$name = $key.'-field-tag-title';
 				$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
 				$out .= '<label for="'.esc_attr($name).'">';
 					$out .= _x('Heading HTML Tag', 'jobs-field', 'job-postings');
@@ -964,7 +946,7 @@ class JobAddEdit
 
 				$name = $key.'-field-tag';
 				$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
 				$out .= '<label for="'.esc_attr($name).'">';
 					$out .= _x('Content HTML Tag', 'jobs-field', 'job-postings');
@@ -985,7 +967,7 @@ class JobAddEdit
 				//
 				$name = $key.'-field-class';
 				$value = get_post_meta($post_id, $name, true);
-				$value = htmlspecialchars($value);
+				$value = esc_html($value);
 
 				$out .= '<label for="'.esc_attr($name).'">';
 					$out .= _x('Custom CSS class', 'jobs-field', 'job-postings');
@@ -999,7 +981,7 @@ class JobAddEdit
 
 		    			$name = $key.'-url';
 		    			$value = get_post_meta($post_id, $name, true);
-						$value = htmlspecialchars($value);
+						$value = esc_html($value);
 
 		    			$out .= '<label for="'.esc_attr($name).'">';
 		    				$out .= _x('URL', 'jobs-field', 'job-postings');
@@ -1011,7 +993,7 @@ class JobAddEdit
 
 		    			$name = $key.'-url-target';
 		    			$value = get_post_meta($post_id, $name, true);
-						$value = htmlspecialchars($value);
+						$value = esc_html($value);
 
 		    			$out .= '<label for="'.esc_attr($name).'">';
 		    				$out .= _x('Link target', 'jobs-field', 'job-postings');
@@ -1026,7 +1008,7 @@ class JobAddEdit
 
 		    			$name = $key.'-style';
 		    			$value = get_post_meta($post_id, $name, true);
-						$value = htmlspecialchars($value);
+						$value = esc_html($value);
 
 		    			$out .= '<label for="'.esc_attr($name).'">';
 		    				$out .= _x('Style', 'jobs-field', 'job-postings');
@@ -1519,7 +1501,7 @@ class JobAddEdit
 			if( !empty($rows) ){
 				$out .= '<datalist id="datalist-'.esc_attr($key).'">';
 					foreach ($rows as $key => $row) {
-						$out .= '<option value="'.htmlspecialchars($row->meta_value).'" />';
+						$out .= '<option value="'.esc_html($row->meta_value).'" />';
 					}
 				$out .= '</datalist>';
 				return $out;

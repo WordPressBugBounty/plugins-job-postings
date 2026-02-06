@@ -109,7 +109,6 @@ class JobSingleView
 
 
                 $custom_title = isset( $values[$key.'-custom-title'] ) ? esc_attr($values[$key.'-custom-title'][0]) : '';
-                $custom_title = htmlspecialchars($custom_title);
                 if( $custom_title ) $name = sanitize_text_field( $custom_title );
 
                 $show_title = true;
@@ -137,7 +136,6 @@ class JobSingleView
                         $meta = 'itemprop="title"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['title'] = esc_html(strip_tags($value));
                     break;
 
@@ -145,7 +143,6 @@ class JobSingleView
                         $meta = 'itemprop="description"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['description'] = esc_html(strip_tags($value));
                     break;
 
@@ -153,7 +150,6 @@ class JobSingleView
                         $meta 	= 'itemprop="responsibilities"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['responsibilities'] = esc_html(strip_tags($value));
                     break;
 
@@ -161,7 +157,6 @@ class JobSingleView
                         $meta 	= 'itemprop="qualifications"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['qualifications'] = esc_html(strip_tags($value));
                     break;
 
@@ -169,7 +164,6 @@ class JobSingleView
                         $meta 	= 'itemprop="jobBenefits"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['jobBenefits'] = esc_html(strip_tags($value));
                     break;
 
@@ -177,7 +171,6 @@ class JobSingleView
                         $meta 	= 'itemprop="workHours"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['workHours'] = esc_html(strip_tags($value));
                     break;
 
@@ -185,11 +178,8 @@ class JobSingleView
                         $meta 	= 'itemprop="baseSalary"';
 
                         $value      = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value      = htmlspecialchars($value);
                         $upto       = isset( $values[$key.'_upto'] ) ? esc_attr( $values[$key.'_upto'][0] ) : '';
-                        $upto       = htmlspecialchars($upto);
                         $unittext_value   = isset( $values[$key.'_unittext'] ) ? esc_attr( $values[$key.'_unittext'][0] ) : '';
-                        $unittext_value = htmlspecialchars($unittext_value);
 
                         $baseSalary = Job_Postings_Helper::numbers_only($value);
                         if($upto) $upto =  Job_Postings_Helper::numbers_only($upto);
@@ -234,7 +224,6 @@ class JobSingleView
                         $meta = 'itemprop="industry"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['industry'] = strip_tags($value);
                     break;
 
@@ -244,7 +233,7 @@ class JobSingleView
                         //$value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
                         $value = get_post_meta( $post_id, $key, true );
                         $value = is_array($value) ? array_values($value) : $value;
-                        if( $value && !is_array($value) ) $value = htmlspecialchars($value);
+                        if( $value && !is_array($value) ) $value = esc_html($value);
                         if( $value ) self::$json_ld['employmentType'] = $value;
                     break;
 
@@ -254,7 +243,6 @@ class JobSingleView
                         $meta = 'itemprop="educationRequirements"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['educationRequirements'] = $value;
                     break;
 
@@ -262,7 +250,6 @@ class JobSingleView
                         $meta = 'itemprop="experienceRequirements"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['experienceRequirements'] = $value;
                     break;
 
@@ -270,7 +257,6 @@ class JobSingleView
                         $meta = 'itemprop="skills"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) self::$json_ld['skills'] = $value;
                     break;
 
@@ -281,22 +267,16 @@ class JobSingleView
 
 
                         $city = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $city = htmlspecialchars($city);
 
                         $streetAddress = isset( $values[$key.'_streetAddress'] ) ? esc_attr( $values[$key.'_streetAddress'][0] ) : '';
-                        $streetAddress = htmlspecialchars($streetAddress);
 
                         $postalCode = isset( $values[$key.'_postalCode'] ) ? esc_attr( $values[$key.'_postalCode'][0] ) : '';
-                        $postalCode = htmlspecialchars($postalCode);
 
                         $addressLocality = (isset( $values[$key.'_addressLocality'] ) && $values[$key.'_addressLocality'][0] != '') ? esc_attr( $values[$key.'_addressLocality'][0] ) : '';
-                        $addressLocality = htmlspecialchars($addressLocality);
 
                         $addressRegion = (isset( $values[$key.'_addressRegion'] ) && $values[$key.'_addressRegion'][0] != '') ? esc_attr( $values[$key.'_addressRegion'][0] ) : '';
-                        $addressRegion = htmlspecialchars($addressRegion);
 
                         $addressCountry = (isset( $values[$key.'_addressCountry'] ) && $values[$key.'_addressCountry'][0] != '') ? esc_attr( $values[$key.'_addressCountry'][0] ) : '';
-                        $addressCountry = htmlspecialchars($addressCountry);
 
 
                         $remote = isset( $values[$key.'_remote'] ) ? $values[$key.'_remote'][0] : '';
@@ -365,7 +345,6 @@ class JobSingleView
                         $meta = 'itemprop="validThrough"';
 
                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                        $value = htmlspecialchars($value);
                         if( $value ) {
                             $value = date('c', strtotime($value));
                             if($value) self::$json_ld['validThrough'] = $value;
@@ -378,7 +357,6 @@ class JobSingleView
                         $hiring_organization_logo 	= isset( $values[$key] ) && $values[$key][0] != '' ? esc_attr( $values[$key][0] ) : $company_logo;
         
                         $hiring_organization 	= isset( $values['position_hiring_organization_name'] ) && $values['position_hiring_organization_name'][0] != '' ? esc_attr( $values['position_hiring_organization_name'][0] ) : get_option('jobs_hiring_organization'.'_'.Job_Postings::$lang);
-                        $hiring_organization = htmlspecialchars($hiring_organization);
                         if(!$hiring_organization) $hiring_organization = get_option('blogname');
     
                         if ( $hiring_organization ) {
@@ -454,7 +432,7 @@ class JobSingleView
                                     case 'textarea':
                                         # INPUT
                                         $value = isset( $values[$key] ) ? $values[$key][0] : '';
-                                        $value = htmlspecialchars_decode($value);
+                                        $value = esc_html($value);
                                         $icon = '';
 
                                         if($key == 'position_work_hours'){
@@ -469,20 +447,15 @@ class JobSingleView
                                         # INPUT
 
                                         $city = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                                        $city = htmlspecialchars($city);
 
                                         $streetAddress = isset( $values[$key.'_streetAddress'] ) ? esc_attr( $values[$key.'_streetAddress'][0] ) : '';
-                                        $streetAddress = htmlspecialchars($streetAddress);
 
                                         $postalCode = isset( $values[$key.'_postalCode'] ) ? esc_attr( $values[$key.'_postalCode'][0] ) : '';
-                                        $postalCode = htmlspecialchars($postalCode);
 
                                         // $addressLocality = (isset( $values[$key.'_addressLocality'] ) && $values[$key.'_addressLocality'][0] != '') ? esc_attr( $values[$key.'_addressLocality'][0] ) : '';
                                         $addressRegion = (isset( $values[$key.'_addressRegion'] ) && $values[$key.'_addressRegion'][0] != '') ? esc_attr( $values[$key.'_addressRegion'][0] ) : '';
-                                        $addressRegion = htmlspecialchars($addressRegion);
 
                                         $addressCountry = (isset( $values[$key.'_addressCountry'] ) && $values[$key.'_addressCountry'][0] != '') ? esc_attr( $values[$key.'_addressCountry'][0] ) : '';
-                                        $addressCountry = htmlspecialchars($addressCountry);
 
                                         $remote = isset( $values[$key.'_remote'] ) ? $values[$key.'_remote'][0] : '';
 
@@ -589,9 +562,7 @@ class JobSingleView
                                     case 'file':
                                         # INPUT
                                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                                        $value = htmlspecialchars($value);
                                         $btn_name = isset( $values[$key.'_name'] ) ? esc_attr( $values[$key.'_name'][0] ) : '';
-                                        $btn_name = htmlspecialchars($btn_name);
 
                                         $url 		= '';
                                         $filename 	= $btn_name;
@@ -624,7 +595,7 @@ class JobSingleView
                                             $pathinfo = pathinfo($url);
                                             $extension = isset($pathinfo['extension']) ? $pathinfo['extension'] : 'none';
 
-                                            $out .= '<a href="'.$url.'" target="_blank" class="button jp-attachment-button ext-'.$extension.'">'.$filename.'</a>';
+                                            $out .= '<a href="'.$url.'" target="_blank" class="button jp-attachment-button ext-'.$extension.'">'.esc_html($filename).'</a>';
 
                                         }
                                         break;
@@ -637,11 +608,11 @@ class JobSingleView
                                         if( is_array($value) && !empty($options) ){
                                             foreach ($value as $vk => $value_key) {
                                                 if( isset($options[$value_key]) && $value_key != 'OTHER' ) {
-                                                    $list[] = htmlspecialchars($options[$value_key]);
+                                                    $list[] = esc_html($options[$value_key]);
                                                 }
                                             }
                                             if( isset($value['other_input']) ){
-                                                $list[] = $value['other_input'];
+                                                $list[] = esc_html( $value['other_input'] );
                                             }
                                         }else if( !is_array($value) && $value != '' ){
                                             $list[] = $value;
@@ -653,7 +624,6 @@ class JobSingleView
                                     default:
                                         # INPUT
                                         $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                                        $value = htmlspecialchars($value);
 
                                         $out .= esc_html($value);
                                         break;
@@ -663,11 +633,8 @@ class JobSingleView
                             if( $key == 'position_base_salary' ){
                                 
                                 $value 	            = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                                $value              = htmlspecialchars($value);
                                 $upto 	            = isset( $values[$key.'_upto'] ) ? esc_attr( $values[$key.'_upto'][0] ) : '';
-                                $upto               = htmlspecialchars($upto);
                                 $unittext_value     = isset( $values[$key.'_unittext'] ) ? esc_attr( $values[$key.'_unittext'][0] ) : '';
-                                $unittext_value     = htmlspecialchars($unittext_value);
 							    $unitText 			= isset($field['unitText']) ? $field['unitText'] : array();
 
                                 if($currency_symbol){
@@ -699,7 +666,7 @@ class JobSingleView
                                 }
 
                                 if( !empty($unitText) && isset($unitText[$unittext_value]) ){
-                                    $out .= apply_filters('job-postings/unitText_output', '<i class="unittext"> '.$unitText[$unittext_value].'</i>', $unittext_value, $unitText);
+                                    $out .= apply_filters('job-postings/unitText_output', '<i class="unittext"> '.esc_html($unitText[$unittext_value]).'</i>', $unittext_value, $unitText);
                                 }
                             }
 
@@ -808,7 +775,7 @@ class JobSingleView
 
                 if( $key == 'position_pdf_export' ){
 
-                    $value = htmlspecialchars($value);
+                    $value = esc_html($value);
                     $out .= '<div class="jobs-row clearfix type-'.$type.' '.$class.'">';
                         $out .= '<div '.$meta.' class="jobs-row-content">';
                             if( $meta_2 ) $out .= '<span '.$meta_2.'>';
@@ -827,7 +794,8 @@ class JobSingleView
                                     $out .= '<div class="jobs-row-input">';
                                         //$pdf_ico = '<img src="'.plugin_dir_url( __FILE__ ).'/images/pdf.svg">';
                                         $pdf_ico = Job_Postings_Helper::getRawSvg( 'pdf.svg' );
-                                        $out .= '<a href="?export-pdf='.$post_id.'" class="job-pdf-export">'.$pdf_ico.$btn.'</a>';
+                                        $aria_label = sprintf(__('Export job listing as PDF: %s', 'job-postings'), esc_html(get_post_meta($post_id, 'position_title', true)));
+                                        $out .= '<a href="?export-pdf='.esc_attr($post_id).'" class="job-pdf-export" aria-label="'.esc_attr($aria_label).'">'.$pdf_ico.esc_html($btn).'</a>';
                                     $out .= '</div>';
                                 $out .= '</div>';
                             if( $meta_2 ) $out .= '</span>';
@@ -840,24 +808,23 @@ class JobSingleView
                     // JobSingleView::$inline_form_in = false;
 
                     $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                    $value = htmlspecialchars($value);
 
                     $offer_ended_enabled = get_option( 'jobs_offer_ended_message_enabled_'.Job_Postings::getLang() );
-                    $offer_ended_enabled = htmlspecialchars($offer_ended_enabled);
                     $offer_ended_message = get_option( 'jobs_offer_ended_message_'.Job_Postings::getLang() );
-                    $offer_ended_message = htmlspecialchars($offer_ended_message);
                     $offer_ended_message = $offer_ended_message ?  sprintf($offer_ended_message, date_i18n(get_option('date_format'), strtotime($job_valid_date)) ) : sprintf(_x('Offer ended on %s', 'job-message', 'job-postings'), date_i18n(get_option('date_format'), strtotime($job_valid_date)) );
 
                     $out .= '<div class="jobs-row-apply">';
 
                         if( $job_valid_date && ($offer_ended_enabled == 'on' && strtotime('23:59:59', strtotime($job_valid_date)) < date('U') ) ){
-                            $out .=  '<p class="jobs-offer-ended">'. $offer_ended_message . '</p>';
+                            $out .=  '<p class="jobs-offer-ended">'. esc_html($offer_ended_message) . '</p>';
                         }else{
 
                             $apply = _x('Apply now','apply-now', 'job-postings');
                             if( $value ) {
                                 $apply = $value;
-                                $out .= '<button class="button jp-apply-button">'.$apply.'</button>';
+                                $job_title = get_post_meta($post_id, 'position_title', true);
+                                $aria_label = sprintf(__('Apply for position: %s', 'job-postings'), esc_html($job_title));
+                                $out .= '<button type="button" class="button jp-apply-button" aria-label="'.esc_attr($aria_label).'">'.esc_html($apply).'</button>';
                             }
                         }
 
@@ -870,7 +837,6 @@ class JobSingleView
                     // JobSingleView::$modal_form_in 	= false;
 
                     $value = isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                    $value = htmlspecialchars($value);
 
                     $offer_ended_enabled = get_option( 'jobs_offer_ended_message_enabled_'.Job_Postings::getLang() );
                     $offer_ended_message = get_option( 'jobs_offer_ended_message_'.Job_Postings::getLang() );
@@ -893,7 +859,6 @@ class JobSingleView
                     $url 	= isset( $values[$key.'-url'] ) ? esc_url( $values[$key.'-url'][0] ) : '';
                     $target = isset( $values[$key.'-url-target'] ) ? esc_attr( $values[$key.'-url-target'][0] ) : '_blank';
                     $value 	= isset( $values[$key] ) ? esc_attr( $values[$key][0] ) : '';
-                    $value = htmlspecialchars($value);
 
                     $out .= '<div class="jobs-row jobs-row-button">';
                         if( $show_title ){
@@ -903,7 +868,7 @@ class JobSingleView
                             $out .= '</div>';
                         }
                         if( $value ) {
-                            $out .= '<a href="'.$url.'" class="button '.$style.'" target="'.$target.'">'.$value.'</a>';
+                            $out .= '<a href="'.esc_url($url).'" class="button '.$style.'" target="'.esc_attr($target).'">'.esc_html($value).'</a>';
                         }
                     $out .= '</div>';
                 }
@@ -985,7 +950,6 @@ class JobSingleView
 			$prefix = $k;
 			$prefix = ( $prefix == "jobBenefits" ) ? "job_benefits" : $prefix;
 			$custom_title = isset( $values['position_'.$prefix.'-custom-title'] ) ? esc_attr($values['position_'.$prefix.'-custom-title'][0]) : '';
-			$custom_title = htmlspecialchars($custom_title);
 			if( $custom_title ) $name = sanitize_text_field( $custom_title );
 
 			$show_title = true;
@@ -1000,21 +964,21 @@ class JobSingleView
 				$show_title = false;
 			
 			if( $k == 'responsibilities' ){
-				$title = ( $show_title ) ? '<h2>'.$name.'</h2><br>' : '';
+				$title = ( $show_title ) ? '<h2>'.esc_html($name).'</h2><br>' : '';
 				$responsibilities_data = $title.$json_script['responsibilities'];
 				$json_script['description'] = $current_description . $responsibilities_data;
 				$current_description = $current_description . $responsibilities_data;
 			}
 			
 			if( $k == 'qualifications' ){
-				$title = ( $show_title ) ? '<h2>'.$name.'</h2><br>' : '';
+				$title = ( $show_title ) ? '<h2>'.esc_html($name).'</h2><br>' : '';
 				$qualifications_data = $title.$json_script['qualifications'];
 				$json_script['description'] = $current_description . $qualifications_data;
 				$current_description = $current_description . $qualifications_data;
 			}
 
 			if( $k == 'jobBenefits' ){
-				$title = ( $show_title ) ? '<h2>'.$name.'</h2><br>' : '';
+				$title = ( $show_title ) ? '<h2>'.esc_html($name).'</h2><br>' : '';
 				$jobbenefits_data = $title.$json_script['jobBenefits'];
 				$json_script['description'] = $current_description . $jobbenefits_data;
 				$current_description = $current_description . $jobbenefits_data;
@@ -1058,7 +1022,6 @@ class JobSingleView
 				$prefix = $k;
 				$prefix = ( $prefix == "jobBenefits" ) ? "job_benefits" : $prefix;
                 $custom_title = isset( $values['position_'.$prefix.'-custom-title'] ) ? esc_attr($values['position_'.$prefix.'-custom-title'][0]) : '';
-                $custom_title = htmlspecialchars($custom_title);
                 if( $custom_title ) $name = sanitize_text_field( $custom_title );
 
                 $show_title = true;

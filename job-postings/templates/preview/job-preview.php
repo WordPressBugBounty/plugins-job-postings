@@ -40,14 +40,15 @@ if( $custom_message ){
 	$custom_message_el = '<div class="job_custom_message">'.$custom_message.'</div>';
 }
 
-$view_button = '<a href="'.$permalink.'" target="'.$target.'" class="apply-btn local">'.$btn_name.'</a>';
+$aria_label = sprintf(__('View job: %s', 'job-postings'), $position_title);
+$view_button = '<a href="'.$permalink.'" target="'.$target.'" class="apply-btn local" aria-label="'.esc_attr($aria_label).'">'.$btn_name.'</a>';
 $view_button = apply_filters('job-postings/view_button', $view_button, $btn_name, $permalink, $target, $post_id);
 
-$out .= '<div class="job-preview clearfix" >';
+$out .= '<article class="job-preview clearfix" role="article" aria-labelledby="job-title-'.$post_id.'">';
 
 	$out .= '<div class="job-content">';
-		$out .= '<h5><a href="'.$permalink.'" target="'.$target.'"><span>'.$position_title.'</span></a></h5>';
-		$out .= '<div class="job-additional-information">';
+		$out .= '<h5><a href="'.$permalink.'" id="job-title-'.$post_id.'" target="'.$target.'"><span>'.$position_title.'</span></a></h5>';
+		$out .= '<div class="job-additional-information" aria-label="'.esc_attr__('Additional job information', 'job-postings').'">';
 			$out .= $info;
 			if($custom_message_el) $out .= $custom_message_el;
 		$out .= '</div>';
@@ -56,8 +57,8 @@ $out .= '<div class="job-preview clearfix" >';
 	$out .= '<div class="job-cta">';
 		$out .= $view_button;
 	$out .= '</div>';
-
-$out .= '</div>';
+	
+$out .= '</article>';
 
 // 
 // NB! No ooutput/write here. We return output ($out) from the function.

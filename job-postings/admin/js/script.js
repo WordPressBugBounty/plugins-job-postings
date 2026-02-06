@@ -831,25 +831,31 @@
 							all.push( 'in' );
 						break;
 
-						case "tinymce":
-							var editor_id = $(this).find('.jobs-row-input .wp-editor-area').attr('id');
+					case "tinymce":
+						var editor_id = $(this).find('.jobs-row-input .wp-editor-area').attr('id');
+						var editor_content = '';
 
-							//console.log('tinymce', tinymce, tinymce.editors);
-							if( tinymce != null ){
-								var editor_content = tinymce.get(editor_id).getContent();
-								var input = '';
-								if( editor_content != '' ) input = 'content in';
-								//console.log( label, editor_content );
-								if(input){
-									if( need == '1' ) {
-										requireds.push( input );
-									}else if( need == '2' ){
-										recommendeds.push( input );
-									}
-									all.push( input );
-								}
+						//console.log('tinymce', tinymce, tinymce.editors);
+						// Check if TinyMCE is available and editor is initialized (Visual mode)
+						if( tinymce != null && tinymce.get(editor_id) != null ){
+							editor_content = tinymce.get(editor_id).getContent();
+						} else {
+							// Fallback to textarea value (Text/Code mode)
+							editor_content = $('#' + editor_id).val();
+						}
+						
+						var input = '';
+						if( editor_content != '' ) input = 'content in';
+						//console.log( label, editor_content );
+						if(input){
+							if( need == '1' ) {
+								requireds.push( input );
+							}else if( need == '2' ){
+								recommendeds.push( input );
 							}
-						break;
+							all.push( input );
+						}
+					break;
 
 						case "location":
 							var input = '';

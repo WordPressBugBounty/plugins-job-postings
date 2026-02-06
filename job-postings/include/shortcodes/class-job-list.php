@@ -180,8 +180,8 @@ if( !class_exists('JobList') ){
             if ( $jobs->have_posts() ) {
 
 
-                $out .= '<div class="job-listing row clearfix">';
-                    $out .= '<div class="'.$class.'">';
+                $out .= '<section class="job-listing row clearfix" aria-label="'.esc_attr__('Job listings', 'job-postings').'">';
+                    $out .= '<div class="'.$class.'" role="list">';
 
                         while ( $jobs->have_posts() ) {
                             $jobs->the_post();
@@ -192,7 +192,7 @@ if( !class_exists('JobList') ){
                         }
 
                     $out .= '</div>';
-                $out .= '</div>';
+                $out .= '</section>';
 
                 if($limit == ''){
                     $out .= self::jobs_corenavi( $jobs );
@@ -208,13 +208,13 @@ if( !class_exists('JobList') ){
                 $message = _x('Currently no job offers available.', 'job-message', 'job-postings');
                 if( get_option('jobs_no_jobs_message'.'_'.Job_Postings::$lang) != '' ) $message = get_option('jobs_no_jobs_message'.'_'.Job_Postings::$lang);
 
-                $out .= '<div class="job-listing row clearfix">';
-                    $out .= '<div class="'.$class.'">';
-                        $out .= '<div class="no-jobs-available">';
+                $out .= '<section class="job-listing row clearfix" aria-label="'.esc_attr__('Job listings', 'job-postings').'">';
+                    $out .= '<div class="'.$class.'" role="list">';
+                        $out .= '<div class="no-jobs-available" role="status" aria-live="polite">';
                             $out .= '<p>'. $message .'</p>';
                         $out .= '</div>';
                     $out .= '</div>';
-                $out .= '</div>';
+                $out .= '</section>';
 
                 $return = $out;
             }
@@ -293,7 +293,7 @@ if( !class_exists('JobList') ){
             $return = '';
 
             if($max > 1){
-                $return .= '<div class="pagination column medium-12">' . paginate_links($args) . '</div>';
+                $return .= '<nav class="pagination column medium-12" role="navigation" aria-label="' . esc_attr__('Job listings pagination', 'job-postings') . '">' . paginate_links($args) . '</nav>';
             }
 
             if($loop_arr) $wp_query = $or_query;

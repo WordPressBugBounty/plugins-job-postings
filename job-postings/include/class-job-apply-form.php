@@ -11,7 +11,7 @@ if( !class_exists('JobApplyForm') ){
 
         $out = '';
 
-        $out .= '<div class="jobs-modal hide">';
+        $out .= '<div class="jobs-modal hide" role="dialog" aria-modal="true" aria-labelledby="jobs-modal-title">';
             $out .= '<div class="jobs-modal-table"><div class="jobs-modal-table-cell">';
                 $out .= self::get_apply_form( false, '', '', '', $post_id );
             $out .= '</div></div>';
@@ -58,15 +58,15 @@ if( !class_exists('JobApplyForm') ){
 
         $out .= '<div class="jobs-modal-content">';
 
-            if(!$inline) $out .= '<span class="modal-close">'.$close_img.'</span>';
+            if(!$inline) $out .= '<button type="button" class="modal-close" aria-label="' . esc_attr__('Close modal window', 'job-postings') . '">'.$close_img.'<span class="sr-only">' . __('Close modal window', 'job-postings') . '</span></button>';
 
             $out .= '<div class="jobs-modal-form clearfix">';
             $out .= '<form id="jobs-modal-form" method="post" enctype="multipart/form-data">';
 
                 if( $custom_title && $name ){
-                    if($show_title) $out .= '<div class="modal-title-small">'.apply_filters('jp-modal-header', $name).'</div>';
+                    if($show_title) $out .= '<div id="jobs-modal-title" class="modal-title-small">'.apply_filters('jp-modal-header', $name).'</div>';
                 }else{
-                    if($show_title) $out .= '<div class="modal-title-small">'.apply_filters('jp-modal-header', _x('Apply now', 'jobs-modal', 'job-postings')).'</div>';
+                    if($show_title) $out .= '<div id="jobs-modal-title" class="modal-title-small">'.apply_filters('jp-modal-header', _x('Apply now', 'jobs-modal', 'job-postings')).'</div>';
                 }
 
                 if(!$inline) $out .= '<div class="modal-title">'.apply_filters('jp-modal-position', _x('Position: ', 'jobs-modal', 'job-postings')) . $postition_title.'</div>';
@@ -316,21 +316,22 @@ if( !class_exists('JobApplyForm') ){
 
         $out = '';
 
-        $out .= '<div class="jobs-modal-input modal-input-'.$key.' '.$type.'_field '.$class.'" data-control="">';
+        $field_id = 'input-' . sanitize_html_class($key);
+        $out .= '<div class="jobs-modal-input modal-input-'.$key.' '.$type.'_field '.$class.'" data-control="" role="group" aria-labelledby="label-' . $field_id . '">';
             switch ($type) {
                 case 'name':
-                    $out .= '<label class="input-label" for="input-'.$key.'">'.$label.$label_req.'</label>';
-                    $out .= '<input id="input-'.$key.'" type="text" name="job_applicant_'.$type.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'">';
+                    $out .= '<label class="input-label" id="label-input-'.$key.'" for="input-'.$key.'">'.$label.$label_req.'</label>';
+                    $out .= '<input id="input-'.$key.'" type="text" name="job_applicant_'.$type.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'"' . ($required ? ' aria-required="true"' : '') . '>';
 
                     break;
                 case 'email':
-                    $out .= '<label class="input-label" for="input-'.$key.'">'.$label.$label_req.'</label>';
-                    $out .= '<input id="input-'.$key.'" type="text" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-job_email input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'">';
+                    $out .= '<label class="input-label" id="label-input-'.$key.'" for="input-'.$key.'">'.$label.$label_req.'</label>';
+                    $out .= '<input id="input-'.$key.'" type="email" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-job_email input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'"' . ($required ? ' aria-required="true"' : '') . '>';
                     break;
 
                 case 'textarea':
-                    $out .= '<label class="input-label" for="input-'.$key.'">'.$label.$label_req.'</label>';
-                    $out .= '<textarea id="input-'.$key.'" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" placeholder="'.$placeholder.'"></textarea>';
+                    $out .= '<label class="input-label" id="label-input-'.$key.'" for="input-'.$key.'">'.$label.$label_req.'</label>';
+                    $out .= '<textarea id="input-'.$key.'" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" placeholder="'.$placeholder.'"' . ($required ? ' aria-required="true"' : '') . '></textarea>';
                     break;
 
 
@@ -345,7 +346,7 @@ if( !class_exists('JobApplyForm') ){
                         $preselected = explode(",", $preselected);
 
 
-                        $out .= '<div class="input-label" for="input-'.$key.'">'.$label.$label_req.'</div>';
+                        $out .= '<div class="input-label" id="label-input-'.$key.'" role="group" aria-labelledby="label-input-'.$key.'">'.$label.$label_req.'</div>';
                         $k = 1;
                         foreach ($options as $index => $option) {
                             if($option == '' || !$option) continue;
@@ -356,7 +357,7 @@ if( !class_exists('JobApplyForm') ){
                             if( in_array($k, $preselected) ) $checked = 'checked="cheked"';
 
                             $out .= '<label class="checkbox-label" for="input-'.$key.'-'.$san_option.'">';
-                                $out .= '<input '.$checked.' id="input-'.$key.'-'.$san_option.'" type="checkbox" name="'.$key.'__field-'.$type.'-'.$san_option.'[]" data-jobinput="'.$key.'" class="modal-input-checkbox input-'.$key.' '.$req.'" value="'.sanitize_text_field($option).'">';
+                                $out .= '<input '.$checked.' id="input-'.$key.'-'.$san_option.'" type="checkbox" name="'.$key.'__field-'.$type.'-'.$san_option.'[]" data-jobinput="'.$key.'" class="modal-input-checkbox input-'.$key.' '.$req.'" value="'.sanitize_text_field($option).'"' . ($required ? ' aria-required="true"' : '') . '>';
                                 $out .= '<span class="checkbox-text">'.htmlspecialchars_decode($option).'</span>';
                             $out .= '</label>';
                             $k++;
@@ -375,7 +376,7 @@ if( !class_exists('JobApplyForm') ){
                         $preselected = preg_replace("/[^0-9,]/", "", $preselected);
                         $preselected = explode(",", $preselected);
 
-                        $out .= '<div class="input-label" for="input-'.$key.'">'.$label.$label_req.'</div>';
+                        $out .= '<div class="input-label" id="label-input-'.$key.'" role="group" aria-labelledby="label-input-'.$key.'">'.$label.$label_req.'</div>';
                         $k = 1;
                         foreach ($options as $index => $option) {
                             if($option == '' || !$option) continue;
@@ -387,7 +388,7 @@ if( !class_exists('JobApplyForm') ){
                             if( in_array($k, $preselected) ) $checked = 'checked="cheked"';
 
                             $out .= '<label class="radio-label" for="input-'.$key.'-'.$san_option.'">';
-                                $out .= '<input '.$checked.' id="input-'.$key.'-'.$san_option.'" type="radio" name="'.$key.'__field-'.$type.'-'.$san_label.'[]" data-jobinput="'.$key.'" class="modal-input-radio input-'.$key.' '.$req.'" value="'.sanitize_text_field($option).'">';
+                                $out .= '<input '.$checked.' id="input-'.$key.'-'.$san_option.'" type="radio" name="'.$key.'__field-'.$type.'-'.$san_label.'[]" data-jobinput="'.$key.'" class="modal-input-radio input-'.$key.' '.$req.'" value="'.sanitize_text_field($option).'"' . ($required ? ' aria-required="true"' : '') . '>';
                                 $out .= '<span class="radio-text">'.$option.'</span>';
                             $out .= '</label>';
                             $k++;
@@ -409,9 +410,9 @@ if( !class_exists('JobApplyForm') ){
 
                         $multiple = ''; //multiple
 
-                        $out .= '<label class="input-label" for="input-'.$key.'">'.$label.$label_req.'</label>';
+                        $out .= '<label class="input-label" id="label-input-'.$key.'" for="input-'.$key.'">'.$label.$label_req.'</label>';
                         $k = 1;
-                        $out .= '<select '.$multiple.' name="'.$key.'__field-'.$type.'[]" class="modal-input-select input-'.$key.' '.$req.'">';
+                        $out .= '<select '.$multiple.' id="input-'.$key.'" name="'.$key.'__field-'.$type.'[]" class="modal-input-select input-'.$key.' '.$req.'"' . ($required ? ' aria-required="true"' : '') . '>';
 
                         foreach ($options as $index => $option) {
                             if($option == '' || !$option) continue;
@@ -451,25 +452,25 @@ if( !class_exists('JobApplyForm') ){
 
                     $add_text = apply_filters('job-modal/add_file_text', $add_text);
 
-                    $out .= '<label class="input-label" for="'.$forid.'">'.$label.$label_req.'</label>';
+                    $out .= '<label class="input-label" id="label-'.$forid.'" for="'.$forid.'">'.$label.$label_req.'</label>';
 
-                    $out .= '<div id="'.$key.'" class="modal-input-fileinput '.$class.'" data-files="0">';
+                    $out .= '<div id="'.$key.'" class="modal-input-fileinput '.$class.'" data-files="0" role="group">';
 
                         if( $multiple ){
                             $out .= '<script type="javascript/html-template" id="file-input-tpl-'.$key.'">';
-                                $out .= '<input id="{id}" type="file" '.$accept.' name="input_'.$key.'-{nr}" data-jobinput="{key}" class="jobgroup-{id} inputfile modal-input-file modal-input-multifile input-{key} '.$req.'">';
+                                $out .= '<input id="{id}" type="file" '.$accept.' name="input_'.$key.'-{nr}" data-jobinput="{key}" class="jobgroup-{id} inputfile modal-input-file modal-input-multifile input-{key} '.$req.'" aria-labelledby="label-{id}"' . ($required ? ' aria-required="true"' : '') . '>';
                             $out .= '</script>';
 
                             $out .= '<script type="javascript/html-template" id="file-label-tpl-'.$key.'">';
                                 $out .= '<label for="{id}" id="label-{id}" class="jobgroup-{id} choose_file_multi"><span class="name">'._x('Select file', 'jobs-modal', 'job-postings').'</span>'.$remove.'</label>';
                             $out .= '</script>';
 
-                            if( $required ) $out .= '<input id="'.$key.'-disabled" type="file" '.$accept.' name="" class="jobgroup-'.$key.'-disabled disabled-file-placeholder inputfile modal-input-file '.$req.'" disabled>';
+                            if( $required ) $out .= '<input id="'.$key.'-disabled" type="file" '.$accept.' name="" class="jobgroup-'.$key.'-disabled disabled-file-placeholder inputfile modal-input-file '.$req.'" disabled aria-hidden="true">';
 
                             $out .= '<label for="'.$forid.'" data-key="'.$key.'" class="choose_file_multi_add btn btn-secondary btn-sm">'.$add.$add_text.'</label>';
 
                         } else {
-                            $out .= '<input id="'.$forid.'" type="file" '.$accept.' name="input_'.$key.'" data-jobinput="'.$key.'" class="inputfile modal-input-file input-'.$key.' '.$req.'" >';
+                            $out .= '<input id="'.$forid.'" type="file" '.$accept.' name="input_'.$key.'" data-jobinput="'.$key.'" class="inputfile modal-input-file input-'.$key.' '.$req.'" aria-labelledby="label-'.$forid.'"' . ($required ? ' aria-required="true"' : '') . '>';
                             $out .= '<label for="'.$forid.'" class="choose_file btn btn-secondary btn-sm"><span>'.$add.$add_text.'</span></label>';
                         }
 
@@ -500,8 +501,8 @@ if( !class_exists('JobApplyForm') ){
                 break;
 
                 default:
-                    $out .= '<label class="input-label" for="input-'.$key.'">'.$label.$label_req.'</label>';
-                    $out .= '<input id="input-'.$key.'" type="text" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'">';
+                    $out .= '<label class="input-label" id="label-input-'.$key.'" for="input-'.$key.'">'.$label.$label_req.'</label>';
+                    $out .= '<input id="input-'.$key.'" type="text" name="input_'.$key.'" data-jobinput="'.$key.'" class="modal-input-text input-'.$key.' '.$req.'" value="" placeholder="'.$placeholder.'"' . ($required ? ' aria-required="true"' : '') . '>';
 
                     break;
             }

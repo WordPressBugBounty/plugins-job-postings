@@ -1248,6 +1248,7 @@ if ( ! isset( $_REQUEST['settings-updated'] ) )
 
 											echo '<select name="'.$option_name.'">';
 												echo '<option value="default" '.selected($fs, 'default', false).'>'.__('Default', 'job-postings').'</option>';
+												$disabled = "";
 												if( !class_exists('WPSEO_Admin') ){
 													$disabled = "disabled";
 												}

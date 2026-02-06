@@ -3,7 +3,7 @@ Contributors: blueglassinteractive, cfoellmann
 Tags: jobs, recruiter, employment, career, vacancy
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 2.7.17
+Stable tag: 2.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,7 @@ Job Postings is a powerfull WordPress plugin that make it easy to add job postin
 * Look and feel of the plugin can be easily modified from Settings page.
 * Applications protected from spam with invisible "honey pot" and additionally with Google reCaptcha.
 * You can define default fields and sorting for new job postings.
+* WCAG 2.2 accessibility support - semantic HTML and ARIA attributes
 
 
 == Installation ==
@@ -39,6 +40,18 @@ Job Postings is a powerfull WordPress plugin that make it easy to add job postin
 3. Use [job-postings] to print jobs listing
 
 == Changelog ==
+
+= 2.8.1 =
+* Minor fixes
+
+= 2.8 =
+* Added WCAG 2.2 accessibility support
+* Added ARIA attributes
+* Improved form accessibility
+* Added semantic HTML structure
+* Fixed: Broken Access Control on pdf download
+* Fixed: (Low priority) XSS
+* Fixed: removed redundand htmlspecialchars
 
 = 2.7.17 =
 * Fix for "From email" settings
