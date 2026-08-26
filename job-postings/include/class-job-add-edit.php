@@ -981,12 +981,11 @@ class JobAddEdit
 
 		    			$name = $key.'-url';
 		    			$value = get_post_meta($post_id, $name, true);
-						$value = esc_html($value);
 
 		    			$out .= '<label for="'.esc_attr($name).'">';
 		    				$out .= _x('URL', 'jobs-field', 'job-postings');
 		    			$out .= '</label>';
-    					$out .= '<input id="'.esc_attr($name).'" type="text" name="'.esc_attr($name).'" value="'.$value.'" placeholder="https://">';
+    					$out .= '<input id="'.esc_attr($name).'" type="text" name="'.esc_attr($name).'" value="'.esc_attr($value).'" placeholder="https://">';
 		    		$out .= '</div>';
 
     				$out .= '<div class="field-settings-row">';

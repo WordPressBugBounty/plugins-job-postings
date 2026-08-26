@@ -14,6 +14,6 @@ echo '<div class="jobs-row clearfix">';
 	 		$key 	= 'job_custom_message';
 	 		$value 	= get_post_meta( $post_id, $key, true );
 
-	 		echo '<input class="jp-input" type="text" name="'.$key.'" id="'.$key.'" value="'.$value.'" placeholder="'._x('Custom excerpt', 'job-settings', 'job-postings').'"/>';
+	 		echo '<input class="jp-input" type="text" name="'.$key.'" id="'.$key.'" value="'.esc_html($value).'" placeholder="'._x('Custom excerpt', 'job-settings', 'job-postings').'"/>';
 	 	echo '</div>';
 echo '</div>';
